@@ -55,7 +55,7 @@ class BookServiceSpec extends Specification {
         given:
         def author = new Author(firstName: 'chuck', lastName: 'norris').save()
         def category = new Category(name: 'lol').save()
-        def book = createBook(author, category)
+        def book = createBook('1234567890', author, category)
         def command = new BookCommand(id:book.id, isbn: '1111111111', name: book.name, publisher: book.publisher,
             datePublised: book.datePublised, authorId: 1, categoryId: 1)
         when:
@@ -63,10 +63,53 @@ class BookServiceSpec extends Specification {
         then:
         bookUpdated.isbn == '1111111111'
     }
-    private Book createBook(Author author, Category category) {
-        def book = new Book(isbn: '1234567890', name: 'pepelui', publisher: 'chuck', datePublised: new Date())
+    private Book createBook(String isbn, Author author, Category category) {
+        def book = new Book(isbn: isbn, name: "libro-$isbn", publisher: 'chuck', datePublised: new Date())
         book.author = author
         book.category = category
         book.save()
+    }
+
+    void "test list book"() {
+        given:
+        def author = new Author(firstName: 'chuck', lastName: 'norris').save()
+        def category = new Category(name: 'lol').save()
+        5.times {
+            createBook("123456789$it", author, category)
+        }
+        when:
+        def list = service.search()
+        then:
+        list.size() == 5
+    }
+    void "test search by name book"() {
+        given:
+        def author = new Author(firstName: 'chuck', lastName: 'norris').save()
+        def category = new Category(name: 'lol').save()
+        5.times {
+            createBook("123456789$it", author, category)
+        }
+        5.times {
+            createBook("111111111$it", author, category)
+        }
+        when:
+        def list = service.search(new BookSearchCommand(name:'libro-1111'))
+        then:
+        list.size() == 5
+    }
+    void "test search by author book"() {
+        given:
+        def author = new Author(firstName: 'chuck', lastName: 'norris').save()
+        def category = new Category(name: 'lol').save()
+        5.times {
+            createBook("123456789$it", author, category)
+        }
+        5.times {
+            createBook("111111111$it", author, category)
+        }
+        when:
+        def list = service.search(new BookSearchCommand(authorLastName: 'norris'))
+        then:
+        list.size() == 10
     }
 }

@@ -18,4 +18,24 @@ class BookService {
         return book
     }
 
+    def search(BookSearchCommand command) {
+        Book.createCriteria().list {
+            if (command?.isbn) eq 'isbn', command.isbn
+            if (command?.name) like 'name', "%${command.name}%"
+            if (command?.edition) eq 'edition', command.edition
+            if (command?.publisher) like 'publisher', "%${command.publisher}%"
+            if (command?.datePublisedIni && command.datePublisedEnd) {
+                between 'datePublised', command.datePublisedIni, command.datePublisedEnd
+            } else if (command?.datePublisedIni) {
+                lt 'datePublised', command.datePublisedIni
+            }
+            if (command?.authorLastName || command?.authorFirstName) {
+                author {
+                    if (command?.authorLastName) like 'lastName', "%${command.authorLastName}%"
+                    if (command?.authorFirstName) like 'firstName', "%${command.authorFirstName}%"
+                }
+            }
+        }
+    }
+
 }
