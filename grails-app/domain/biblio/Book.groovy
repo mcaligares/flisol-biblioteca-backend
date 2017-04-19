@@ -9,15 +9,14 @@ class Book {
     String publisher
     Date datePublised
     Date dateCreated
-    Category category
-    static hasMany = [authors: Author]
+    static belongsTo = [author: Author, category: Category]
 
     static constraints = {
-        isbn blank: false, size: 10
-        name blank: false, size: 3..50
+        isbn blank: false, minSize: 10, maxSize: 10
+        name blank: false, minSize: 3, maxSize: 50
         cover nullable: true
         edition nullable: true
-        publisher blank: false, size: 3..50
+        publisher blank: false, minSize: 3, maxSize: 50
     }
 
 }

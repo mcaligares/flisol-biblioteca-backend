@@ -6,7 +6,7 @@ class Category {
     static hasMany = [books: Book]
 
     static constraints = {
-        name blank: false, size: 3..50
+        name blank: false, minSize: 3, maxSize: 50
     }
 
 }
