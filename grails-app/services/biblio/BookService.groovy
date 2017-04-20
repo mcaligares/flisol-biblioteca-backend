@@ -18,6 +18,7 @@ class BookService {
         return book
     }
 
+    @Transactional(readOnly = true)
     def search(BookSearchCommand command) {
         Book.createCriteria().list {
             if (command?.isbn) eq 'isbn', command.isbn

@@ -67,7 +67,7 @@ class BookServiceSpec extends Specification {
         def book = new Book(isbn: isbn, name: "libro-$isbn", publisher: 'chuck', datePublised: new Date())
         book.author = author
         book.category = category
-        book.save()
+        book.save(flush: true)
     }
 
     void "test list book"() {
