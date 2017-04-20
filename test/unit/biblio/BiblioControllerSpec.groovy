@@ -4,9 +4,9 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
-@TestFor(BookController)
+@TestFor(BiblioController)
 @Mock([Book, Author, Category])
-class BookControllerSpec extends Specification {
+class BiblioControllerSpec extends Specification {
 
     void setup() {
         controller.bookService = Mock(BookService)

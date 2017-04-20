@@ -12,7 +12,7 @@ class MarshallerBootStrap {
                     isbn                     : it.isbn,
                     name                     : it.name,
                     url                      : it.url,
-                    cover                    : grailsLinkGenerator.resource(dir: 'assets/books', file: it.cover, absolute: true),
+                    cover                    : it. cover ? grailsLinkGenerator.resource(dir: 'assets/books', file: it.cover, absolute: true) : null,
                     edition                  : it.edition,
                     publisher                : it.publisher,
                     datePublised             : it.datePublised?.format('dd-MM-yyyy'),
