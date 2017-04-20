@@ -4,6 +4,7 @@ class Book {
 
     String isbn
     String name
+    String url
     String cover
     String edition
     String publisher
@@ -15,6 +16,7 @@ class Book {
     static constraints = {
         isbn unique: true, blank: false, minSize: 10, maxSize: 10
         name blank: false, minSize: 3, maxSize: 50
+        url nullable: true
         cover nullable: true
         edition nullable: true
         publisher blank: false, minSize: 3, maxSize: 50
