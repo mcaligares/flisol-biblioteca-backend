@@ -147,6 +147,3 @@ Host: myhost*
   }
 ]
 ```
-
-## WAR file
-- **v0.1** build/biblio-0.1.war
