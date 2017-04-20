@@ -15,7 +15,7 @@ class Book {
 
     static constraints = {
         isbn unique: true, blank: false, minSize: 10, maxSize: 10
-        name blank: false, minSize: 3, maxSize: 50
+        name blank: false, minSize: 3, maxSize: 250
         url nullable: true
         cover nullable: true
         edition nullable: true
