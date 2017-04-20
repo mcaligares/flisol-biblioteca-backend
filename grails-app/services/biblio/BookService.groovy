@@ -22,9 +22,9 @@ class BookService {
     def search(BookSearchCommand command) {
         Book.createCriteria().list {
             if (command?.isbn) eq 'isbn', command.isbn
-            if (command?.name) like 'name', "%${command.name}%"
+            if (command?.name) ilike 'name', "%${command.name}%"
             if (command?.edition) eq 'edition', command.edition
-            if (command?.publisher) like 'publisher', "%${command.publisher}%"
+            if (command?.publisher) ilike 'publisher', "%${command.publisher}%"
             if (command?.datePublisedIni && command.datePublisedEnd) {
                 between 'datePublised', command.datePublisedIni, command.datePublisedEnd
             } else if (command?.datePublisedIni) {
@@ -32,8 +32,8 @@ class BookService {
             }
             if (command?.authorLastName || command?.authorFirstName) {
                 author {
-                    if (command?.authorLastName) like 'lastName', "%${command.authorLastName}%"
-                    if (command?.authorFirstName) like 'firstName', "%${command.authorFirstName}%"
+                    if (command?.authorLastName) ilike 'lastName', "%${command.authorLastName}%"
+                    if (command?.authorFirstName) ilike 'firstName', "%${command.authorFirstName}%"
                 }
             }
         }

@@ -3,13 +3,14 @@ import biblio.*
 class BootStrap {
 
     def init = { servletContext ->
-        createProgrammingBook()
+        createProgrammingBooks()
+        createFreeSoftwareBooks()
     }
 
     def destroy = {
     }
 
-    private void createProgrammingBook() {
+    private void createProgrammingBooks() {
         Category programming = new Category(name: 'Programación').save()
 
         Author rMartin = new Author(firstName: 'Robert Cecil', lastName: 'Martin').save()
@@ -62,4 +63,28 @@ class BootStrap {
         ionicFramework.save()
     }
 
+    private void createFreeSoftwareBooks() {
+        Category freeSoftware = new Category(name: 'Software Libre').save()
+
+        Author aSwartz = new Author(firstName: 'Aaron', lastName: 'Swartz').save()
+        Book aSwartzBook = new Book(isbn:'162097066X', cover: 'theboywhocouldchangetheword.jpg', publisher:'Prentice Hall',
+            name: 'The Boy Who Could Change the World', datePublised: new Date())
+        aSwartzBook.author = aSwartz
+        aSwartzBook.category = freeSoftware
+        aSwartzBook.save()
+
+        Author mLinsky = new Author(firstName: 'Marty', lastName: 'Linsky').save()
+        Book mLinskyBook = new Book(isbn:'1422105768', cover: 'adaptativeleadership.jpg', publisher:'Prentice Hall',
+            name: 'The Practice of Adaptive Leadership', datePublised: new Date())
+        mLinskyBook.author = mLinsky
+        mLinskyBook.category = freeSoftware
+        mLinskyBook.save()
+
+        Author cDiBona = new Author(firstName: 'Chris', lastName: 'DiBona').save()
+        Book openSourceBook = new Book(isbn:'1565925823', cover: 'opensource.jpg', publisher:'Prentice Hall',
+            name: 'Open Sources: Voices from the Open Source Revolution', datePublised: new Date())
+        openSourceBook.author = cDiBona
+        openSourceBook.category = freeSoftware
+        openSourceBook.save()
+    }
 }
